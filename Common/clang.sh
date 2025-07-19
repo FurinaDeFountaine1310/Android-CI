@@ -36,7 +36,7 @@ chmod +x build-llvm.py
     --quiet-cmake \
     --shallow-clone \
     --targets ARM AArch64 X86 \
-    --ref "release/18.x" \
+    --ref "release/17.x" \
     --vendor-string "$LLVM_NAME" 2>&1 | tee build.log
 
 # Check if the final clang binary exists or not.
@@ -78,17 +78,17 @@ short_llvm_commit="$(cut -c-8 <<<"$llvm_commit")"
 popd || exit
 
 llvm_commit_url="https://github.com/llvm/llvm-project/commit/$short_llvm_commit"
-binutils_ver="$(ls | grep "^binutils-1" | sed "s/binutils-//g")"
+binutils_ver="$(ls | grep "^binutils-1*" | sed "s/binutils-//g")"
 clang_version="$(install/bin/clang --version | head -n1 | cut -d' ' -f4)"
 
 # Push to GitHub
 # Update Git repository
-git clone "https://Carlotta-Montelli:$GH_TOKEN@github.com/Carlotta-Montelli/carlotta-clang-18" rel_repo
+git clone "https://Carlotta-Montelli:$GH_TOKEN@github.com/Carlotta-Montelli/carlotta-clang-17" rel_repo
 pushd rel_repo || exit
 rm -fr ./*
 cp -r ../install/* .
 git lfs install
-git lfs track "clang-18"
+git lfs track "clang-17"
 git lfs track "opt"
 git lfs track "clang-linker-wrapper"
 git lfs track "clang-repl"
@@ -99,14 +99,14 @@ git lfs track "libLTO.so"
 git lfs track "bugpoint"
 git lfs track "clang-scan-deps"
 git lfs track "lld"
-git lfs track "libclang.so.18.1.8"
-git lfs track "libclang-cpp.so.18.1"
+git lfs track "libclang.so.17.0.6"
+git lfs track "libclang-cpp.so.17.0"
 git checkout README.md # keep this as it's not part of the toolchain itself
 git add .
 git commit -asm "Carlotta: Update to $rel_date build
 LLVM commit: $llvm_commit_url
 Clang Version: $clang_version
 Binutils version: $binutils_ver
-Builder commit: https://github.com/Carlotta-Montelli/carlotta-clang-18/commit/$builder_commit"
+Builder commit: https://github.com/Carlotta-Montelli/carlotta-clang-17/commit/$builder_commit"
 git push
 popd || exit
