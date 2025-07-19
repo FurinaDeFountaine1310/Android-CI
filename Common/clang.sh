@@ -100,13 +100,11 @@ git lfs track "bugpoint"
 git lfs track "clang-scan-deps"
 git lfs track "lld"
 git lfs track "libclang.so.16.0.6"
-git lfs track "libclang-cpp.so.16.0"
+git lfs track "libclang-cpp.so.16"
 git checkout README.md # keep this as it's not part of the toolchain itself
 git add .
 git commit -asm "Carlotta: Update to $rel_date build
 LLVM commit: $llvm_commit_url
-Clang Version: $clang_version
-Binutils version: $binutils_ver
-Builder commit: https://github.com/Carlotta-Montelli/carlotta-clang-16/commit/$builder_commit"
+Clang Version: $clang_version"
 git push
 popd || exit
