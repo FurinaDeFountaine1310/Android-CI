@@ -100,7 +100,7 @@ git lfs track "bugpoint"
 git lfs track "clang-scan-deps"
 git lfs track "lld"
 git lfs track "libclang.so.14.0.6"
-git lfs track "libclang-cpp.so.14.0"
+git lfs track "libclang-cpp.so.14"
 git checkout README.md # keep this as it's not part of the toolchain itself
 git add .
 git commit -asm "Carlotta: Update to $rel_date build
